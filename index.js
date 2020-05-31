@@ -24,6 +24,7 @@ shuffle(data);
 
 function schedule(data, dayCount) {
   console.log(data);
+  shuffle(data);
 
   const days = new Array(dayCount); for (let i = 0; i < days.length; i++) days[i] = [];
 
@@ -46,10 +47,6 @@ function schedule(data, dayCount) {
     });
   }
 
-  //console.log('subjects: ', subjects);
-  //console.log('-------------');
-  //console.log('students: ', students);
-
   for (let i = 0; i < days.length; i++) {
     for (const student of Object.values(students)) {
       if (student.tired) {
@@ -65,30 +62,21 @@ function schedule(data, dayCount) {
     }
   }
 
-  //console.log('-------');
   console.log('days: ', days);
 
   for (let i = days.length - 1; i != -1; i--) {
     const day = days[i];
+    if (!day.length) addRow(days.indexOf(day) + 1, '', '');
     for (const student of day) {
-      addRow(days.indexOf(day), student.number, student.subject);
+      addRow(days.indexOf(day) + 1, student.number, student.subject);
     }
-  }
-
-  const textarea = document.getElementById('textarea');
-  for (const day of days) {
-    textarea.innerHTML += 'Day ' + (days.indexOf(day) + 1);
-    if (day.length) {
-      textarea.innerHTML += ': \n';
-    }
-    textarea.innerHTML += day.map(o => `${o.number} ${o.subject}`).join('\n') + '\n\n';
   }
 }
 
 function addRow(day, no, subj) {
   const table = document.getElementById('table');
-  var tbodyRowCount = table.tBodies[0].rows.length;
-  const row = table.insertRow(tbodyRowCount + 1);
+  const rowCount = table.tBodies[0].rows.length;
+  const row = table.insertRow(rowCount + 1);
   const cell1 = row.insertCell(0);
   const cell2 = row.insertCell(1);
   const cell3 = row.insertCell(2);
