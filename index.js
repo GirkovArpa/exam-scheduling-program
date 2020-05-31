@@ -46,9 +46,9 @@ function schedule(data, dayCount) {
     });
   }
 
-  console.log('subjects: ', subjects);
-  console.log('-------------');
-  console.log('students: ', students);
+  //console.log('subjects: ', subjects);
+  //console.log('-------------');
+  //console.log('students: ', students);
 
   for (let i = 0; i < days.length; i++) {
     for (const student of Object.values(students)) {
@@ -65,8 +65,15 @@ function schedule(data, dayCount) {
     }
   }
 
-  console.log('-------');
+  //console.log('-------');
   console.log('days: ', days);
+
+  for (let i = days.length - 1; i != -1; i--) {
+    const day = days[i];
+    for (const student of day) {
+      addRow(days.indexOf(day), student.number, student.subject);
+    }
+  }
 
   const textarea = document.getElementById('textarea');
   for (const day of days) {
@@ -76,22 +83,16 @@ function schedule(data, dayCount) {
     }
     textarea.innerHTML += day.map(o => `${o.number} ${o.subject}`).join('\n') + '\n\n';
   }
+}
 
-
-
-  // Find a <table> element with id="myTable":
-  var table = document.getElementById("table");
-
-  // Create an empty <tr> element and add it to the 1st position of the table:
-  var row = table.insertRow(0);
-
-  // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
-  var cell1 = row.insertCell(0);
-  var cell2 = row.insertCell(1);
-  var cell3 = row.insertCell(2);
-
-  // Add some text to the new cells:
-  cell1.innerHTML = "NEW CELL1";
-  cell2.innerHTML = "NEW CELL2";
-  cell3.innerHTML = "NEW CELL3";
+function addRow(day, no, subj) {
+  const table = document.getElementById('table');
+  var tbodyRowCount = table.tBodies[0].rows.length;
+  const row = table.insertRow(tbodyRowCount + 1);
+  const cell1 = row.insertCell(0);
+  const cell2 = row.insertCell(1);
+  const cell3 = row.insertCell(2);
+  cell1.innerHTML = day;
+  cell2.innerHTML = no;
+  cell3.innerHTML = subj;
 }
