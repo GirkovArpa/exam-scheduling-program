@@ -6,6 +6,7 @@
 
 <body>
   <input id="file" type="file" />
+  <input id="number" type="number" />
   <textarea id="textarea"></textarea>
 </body>
 <script>
@@ -20,7 +21,8 @@
         entry = entry.split(' ');
         seasoned.push({ No: entry[0], Subj: entry[1] });
       }
-      schedule(seasoned, 9);
+      const numberOfDays = Number(document.getElementById('number').value);
+      schedule(seasoned, numberOfDays);
     }
   });
 </script>
