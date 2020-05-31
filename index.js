@@ -6,21 +6,6 @@ const shuffle = function shuffleArray(array) {
     [array[i], array[j]] = [array[j], array[i]];
   }
 }
-/*
-const data = [
-  { No: 1234567, Subj: 'ACCY' },
-  { No: 1234567, Subj: 'ECON' },
-  { No: 1234567, Subj: 'STAT' },
-  { No: 1234568, Subj: 'ACCY' },
-  { No: 1234568, Subj: 'ECON' },
-  { No: 1234568, Subj: 'PHY' },
-  { No: 1234568, Subj: 'FIN' },
-  { No: 1234569, Subj: 'ACCY' },
-  { No: 1234569, Subj: 'ECON' }
-];
-
-shuffle(data);
-*/
 
 function schedule(data, dayCount) {
   console.log(data);
