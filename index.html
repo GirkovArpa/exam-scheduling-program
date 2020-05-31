@@ -12,15 +12,39 @@
   <body>
 
     <div class="container p-3 my-3 bg-primary text-white">
-      <div class="row">
+      <div class="row mb-4">
         <div class="col-sm-12">
           <h1 class="text-center">Exam Scheduling Program</h1>
         </div>
       </div>
 
-      <div class="row">
-        <div class="col"><input id="file" type="file" /></div>
-        <div class="col"><input id="number" type="number" value="9" /></div>
+      <div class="row mb-4 text-center">
+        <div class="col-sm">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Input</span>
+            </div>
+            <textarea id="textarea" class="form-control" aria-label="With textarea"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-4 text-center">
+        <div class="col-sm">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Days</span>
+            </div>
+            <input id="number" type="number" class="form-control" value="9"
+              placeholder="This box must contain a number!" aria-label="Days" aria-describedby="basic-addon1">
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-4 text-center">
+        <div class="col-sm">
+          <button id="schedule" type="button" class="btn btn-secondary btn-lg btn-block">Schedule</button>
+        </div>
       </div>
 
       <table id="table" class="table bg-primary text-white">
@@ -38,20 +62,16 @@
 
   </body>
   <script>
-    document.getElementById('file').addEventListener('change', event => {
-      const reader = new FileReader();
-      reader.readAsText(event.target.files[0]);
-      reader.onload = event => {
-        const raw = event.target.result;
-        let cooked = raw.split(/\r\n|\r|\n/g).slice(1);
-        let seasoned = [];
-        for (let entry of cooked) {
-          entry = entry.split(' ');
-          seasoned.push({ No: entry[0], Subj: entry[1] });
-        }
-        const numberOfDays = Number(document.getElementById('number').value);
-        schedule(seasoned, numberOfDays);
+    document.getElementById('schedule').addEventListener('click', event => {
+      const raw = document.getElementById('textarea').value;
+      let cooked = raw.split(/\r\n|\r|\n/g).slice(1);
+      let seasoned = [];
+      for (let entry of cooked) {
+        entry = entry.split(' ');
+        seasoned.push({ No: entry[0], Subj: entry[1] });
       }
+      const numberOfDays = Number(document.getElementById('number').value);
+      schedule(seasoned, numberOfDays);
     });
   </script>
 
