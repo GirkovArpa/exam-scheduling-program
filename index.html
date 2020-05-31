@@ -1,30 +1,47 @@
 <!DOCTYPE html>
-<header>
-  <title></title>
-</header>
-<script src="index.js"></script>
+<html lang="en">
 
-<body>
-  <input id="file" type="file" />
-  <input id="number" type="number" />
-  <textarea id="textarea"></textarea>
-</body>
-<script>
-  document.getElementById('file').addEventListener('change', event => {
-    const reader = new FileReader();
-    reader.readAsText(event.target.files[0]);
-    reader.onload = event => {
-      const raw = event.target.result;
-      let cooked = raw.split(/\r\n|\r|\n/g).slice(1);
-      let seasoned = [];
-      for (let entry of cooked) {
-        entry = entry.split(' ');
-        seasoned.push({ No: entry[0], Subj: entry[1] });
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="index.js"></script>
+    <title>Exam Scheduler</title>
+  </head>
+
+  <body>
+
+    <div class="container p-3 my-3 bg-primary text-white">
+      <div class="row">
+        <div class="col-sm-12">
+          <h1>Exam Scheduling Program</h1>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col"><input id="file" type="file" /></div>
+        <div class="col"><input id="number" type="number" /></div>
+      </div>
+      <textarea id="textarea"></textarea>
+    </div>
+
+  </body>
+  <script>
+    document.getElementById('file').addEventListener('change', event => {
+      const reader = new FileReader();
+      reader.readAsText(event.target.files[0]);
+      reader.onload = event => {
+        const raw = event.target.result;
+        let cooked = raw.split(/\r\n|\r|\n/g).slice(1);
+        let seasoned = [];
+        for (let entry of cooked) {
+          entry = entry.split(' ');
+          seasoned.push({ No: entry[0], Subj: entry[1] });
+        }
+        const numberOfDays = Number(document.getElementById('number').value);
+        schedule(seasoned, numberOfDays);
       }
-      const numberOfDays = Number(document.getElementById('number').value);
-      schedule(seasoned, numberOfDays);
-    }
-  });
-</script>
+    });
+  </script>
 
 </html>
