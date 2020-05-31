@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<header>
+  <title></title>
+</header>
+<script src="index.js"></script>
+
+<body>
+  <input id="file" type="file" />
+  <textarea id="textarea"></textarea>
+</body>
+<script>
+  document.getElementById('file').addEventListener('change', event => {
+    const reader = new FileReader();
+    reader.readAsText(event.target.files[0]);
+    reader.onload = event => {
+      const raw = event.target.result;
+      let cooked = raw.split(/\r\n|\r|\n/g).slice(1);
+      let seasoned = [];
+      for (let entry of cooked) {
+        entry = entry.split(' ');
+        seasoned.push({ No: entry[0], Subj: entry[1] });
+      }
+      schedule(seasoned, 9);
+    }
+  });
+</script>
+
+</html>
