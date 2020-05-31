@@ -64,8 +64,7 @@ function schedule(data, dayCount) {
 
   console.log('days: ', days);
 
-  for (let i = days.length - 1; i != -1; i--) {
-    const day = days[i];
+  for (const day of days) {
     if (!day.length) addRow(days.indexOf(day) + 1, '', '');
     for (const student of day) {
       addRow(days.indexOf(day) + 1, student.number, student.subject);
@@ -74,9 +73,8 @@ function schedule(data, dayCount) {
 }
 
 function addRow(day, no, subj) {
-  const table = document.getElementById('table');
-  const rowCount = table.tBodies[0].rows.length;
-  const row = table.insertRow(rowCount + 1);
+  const tbody = document.getElementById('table').getElementsByTagName('tbody')[0];
+  const row = tbody.insertRow();
   const cell1 = row.insertCell(0);
   const cell2 = row.insertCell(1);
   const cell3 = row.insertCell(2);

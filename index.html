@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <script src="index.js"></script>
-    <title>Exam Scheduler</title>
+    <title>Exam Scheduling Program</title>
   </head>
 
   <body>
@@ -47,7 +47,7 @@
         </div>
       </div>
 
-      <table id="table" class="table bg-primary text-white">
+      <table style="font-weight: bold;" id="table" class="table bg-primary text-white">
         <thead class="thead-dark">
           <tr>
             <th>Day</th>
@@ -55,14 +55,27 @@
             <th>Subj.</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="tbody">
         </tbody>
       </table>
     </div>
 
   </body>
   <script>
-    document.getElementById('schedule').addEventListener('click', event => {
+    document.getElementById('textarea').value = `No. Subj
+1234567 ACCY
+1234567 ECON
+1234567 STAT
+1234568 ACCY
+1234568 ECON
+1234568 PHY
+1234568 FIN
+1234569 ACCY
+1234569 ECON`;
+
+    function update() {
+      document.getElementById('tbody').innerHTML = '';
+
       const raw = document.getElementById('textarea').value;
       let cooked = raw.split(/\r\n|\r|\n/g).slice(1);
       let seasoned = [];
@@ -72,7 +85,15 @@
       }
       const numberOfDays = Number(document.getElementById('number').value);
       schedule(seasoned, numberOfDays);
+    }
+
+    document.getElementById('schedule').addEventListener('click', event => {
+      update();
     });
+
+    document.getElementById('number').addEventListener('input', event => {
+        update();
+      });
   </script>
 
 </html>
