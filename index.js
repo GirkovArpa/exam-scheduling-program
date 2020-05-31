@@ -33,9 +33,16 @@ for (const datum of data) {
   subjects[datum.Subj].students.push(datum.No);
 }
 
-console.log(subjects);
+for (const student of Object.values(students)) {
+  student.subjects = student.subjects.sort();
+  student.subjects = student.subjects.sort((a, b) => {
+    return (subjects[a].students.length < subjects[b].students.length) ? 1 : (subjects[a].students.length === subjects[b].students.length) ? ((subjects[a].subject > subjects[b].subject) ? 1 : -1) : -1;
+  });
+}
+
+console.log('subjects: ', subjects);
 console.log('-------------');
-console.log(students);
+console.log('students: ', students);
 
 const days = new Array(9); for (let i = 0; i < days.length; i++) days[i] = [];
 
@@ -55,4 +62,4 @@ for (let i = 0; i < days.length; i++) {
 }
 
 console.log('-------');
-console.log(days);
+console.log('days: ', days);
